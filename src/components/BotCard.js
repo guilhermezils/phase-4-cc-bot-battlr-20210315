@@ -1,55 +1,54 @@
 import React from "react";
-
 const botTypeClasses = {
   Assault: "icon military",
   Defender: "icon shield",
   Support: "icon plus circle",
   Medic: "icon ambulance",
   Witch: "icon magic",
-  Captain: "icon star"
+  Captain: "icon star",
 };
-
-const BotCard = props => {
+const BotCard = ({ bot, handleClick, handleDelete }) => {
   return (
     <div className="ui column">
       <div
         className="ui card"
-        key={props.bot.id}
-        onClick={() => console.log("add code to connect event listener")}
+        key={bot.id}
+        onClick={() => handleClick(bot)}
+        
       >
         <div className="image">
-          <img alt="oh no!" src={props.bot.avatar_url} />
+          <img alt="oh no!" src={bot.avatar_url} />
         </div>
         <div className="content">
           <div className="header">
-            {props.bot.name}
-            <i className={botTypeClasses[props.bot.bot_class]} />
+            {bot.name}
+            <i className={botTypeClasses[bot.bot_class]} />
           </div>
           <div className="meta text-wrap">
-            <small>{props.bot.catchphrase}</small>
+            <small>{bot.catchphrase}</small>
           </div>
         </div>
         <div className="extra content">
           <span>
             <i className="icon heartbeat" />
-            {props.bot.health}
+            {bot.health}
           </span>
-
           <span>
             <i className="icon lightning" />
-            {props.bot.damage}
+            {bot.damage}
           </span>
           <span>
             <i className="icon shield" />
-            {props.bot.armor}
+            {bot.armor}
           </span>
           <span>
             <div className="ui center aligned segment basic">
               <button
                 className="ui mini red button"
-                onClick={() =>
-                  console.log("add code to connect event listener")
-                }
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(bot);
+                }}
               >
                 x
               </button>
@@ -60,5 +59,4 @@ const BotCard = props => {
     </div>
   );
 };
-
 export default BotCard;
